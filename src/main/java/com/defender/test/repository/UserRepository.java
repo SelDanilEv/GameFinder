@@ -1,10 +1,8 @@
 package com.defender.test.repository;
 
-
 import com.defender.test.models.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {

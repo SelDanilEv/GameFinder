@@ -22,7 +22,7 @@ public class HomeController {
             @AuthenticationPrincipal User user,
             Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home");
+        modelAndView.setViewName("login");
         return modelAndView;
     }
 }

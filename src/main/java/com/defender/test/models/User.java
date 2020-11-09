@@ -33,6 +33,14 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public User(Integer idUser, String username, String password, boolean active, Set<Role> roles) {
+        this.idUser = idUser;
+        this.username = username;
+        this.password = password;
+        this.active = active;
+        this.roles = roles;
+    }
+
     public Integer getIdUser() {
         return idUser;
     }
