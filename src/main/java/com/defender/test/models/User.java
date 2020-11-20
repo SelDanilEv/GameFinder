@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idUser;
+    private Integer id;
 
     private String username;
     private String password;
@@ -34,19 +35,19 @@ public class User implements UserDetails {
     }
 
     public User(Integer idUser, String username, String password, boolean active, Set<Role> roles) {
-        this.idUser = idUser;
+        this.id = idUser;
         this.username = username;
         this.password = password;
         this.active = active;
         this.roles = roles;
     }
 
-    public Integer getIdUser() {
-        return idUser;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setId(Integer idUser) {
+        this.id = idUser;
     }
 
     public String getUsername() {

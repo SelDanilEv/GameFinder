@@ -40,38 +40,38 @@ public class UserRestControllerV1 {
         return modelAndView;
     }
 
-    @PostMapping("/games")
-    public ModelAndView addGame(
-            @RequestParam String name,
-            @RequestParam String version,
-            Model model) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        Game newGame = new Game(name, version);
-
-        gameRepository.save(newGame);
-
-        Iterable<Game> games = gameRepository.findAll();
-
-        model.addAttribute("games", games);
-        modelAndView.setViewName("games");
-
-        return modelAndView;
-    }
-
-    @PostMapping("/filter")
-    public ModelAndView filter(
-            @RequestParam String filter,
-            Model model) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        Iterable<Game> games = gameRepository.findByName(filter);
-
-        model.addAttribute("games", games);
-        modelAndView.setViewName("games");
-
-        return modelAndView;
-    }
+//    @PostMapping("/games")
+//    public ModelAndView addGame(
+//            @RequestParam String name,
+//            @RequestParam String version,
+//            Model model) {
+//        ModelAndView modelAndView = new ModelAndView();
+//
+//        Game newGame = new Game(name, version);
+//
+//        gameRepository.save(newGame);
+//
+//        Iterable<Game> games = gameRepository.findAll();
+//
+//        model.addAttribute("games", games);
+//        modelAndView.setViewName("games");
+//
+//        return modelAndView;
+//    }
+//
+//    @PostMapping("/filter")
+//    public ModelAndView filter(
+//            @RequestParam String filter,
+//            Model model) {
+//        ModelAndView modelAndView = new ModelAndView();
+//
+//        Iterable<Game> games = gameRepository.findByName(filter);
+//
+//        model.addAttribute("games", games);
+//        modelAndView.setViewName("games");
+//
+//        return modelAndView;
+//    }
 
     @GetMapping(value = "{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") Integer id) {

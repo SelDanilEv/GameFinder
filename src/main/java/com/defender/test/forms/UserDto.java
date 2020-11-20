@@ -11,14 +11,14 @@ public class UserDto {
 
     public User toUser(){
         User user = new User();
-        user.setIdUser(id);
+        user.setId(id);
         user.setUsername(username);
         return user;
     }
 
     public static UserDto fromUser(User user) {
         UserDto userDto = new UserDto();
-        userDto.setId(user.getIdUser());
+        userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
 
         return userDto;

@@ -1,14 +1,13 @@
 package com.defender.test.repository;
 
 
-import com.defender.test.models.Game;
+import com.defender.test.models.Rating;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface GameRepository extends CrudRepository<Game, Integer> {
-    Game findByName(String name);
-    List<Game> findAllByName(String name);
+public interface RatingRepository extends CrudRepository<Rating, Integer> {
+
 }

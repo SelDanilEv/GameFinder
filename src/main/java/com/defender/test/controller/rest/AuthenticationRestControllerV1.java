@@ -1,11 +1,12 @@
 package com.defender.test.controller.rest;
 
+import com.defender.test.controller.ControllerUtils;
 import com.defender.test.forms.AuthenticationRequestDto;
 import com.defender.test.models.Role;
 import com.defender.test.models.User;
 import com.defender.test.repository.UserRepository;
 import com.defender.test.security.JwtTokenProvider;
-import org.hibernate.Session;
+import com.defender.test.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,11 +14,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collector;
 
 
 @RestController
@@ -32,6 +40,9 @@ public class AuthenticationRestControllerV1 {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JwtUserDetailsService userService;
 
     @Autowired
     public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
@@ -56,8 +67,17 @@ public class AuthenticationRestControllerV1 {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(Model model,@ModelAttribute("form") AuthenticationRequestDto form) {
+    public ModelAndView login(
+            @Valid @ModelAttribute("form") AuthenticationRequestDto form,
+            BindingResult bindingResult,
+            Model model) {
         try {
+            if(bindingResult.hasErrors()){
+                ModelAndView modelAndView = new ModelAndView("login");
+                model.addAttribute("form", form);
+
+                return modelAndView;
+            }
             String username = form.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, form.getPassword()));
             User user = userRepository.findByUsername(username);
@@ -73,6 +93,8 @@ public class AuthenticationRestControllerV1 {
             response.addObject("token", token);
             response.setViewName("home");
 
+            response.addObject("isAdmin", user.getRoles().contains(Role.ADMIN));
+
             return response;
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
@@ -80,15 +102,24 @@ public class AuthenticationRestControllerV1 {
     }
 
     @PostMapping("/registrate")
-    public ModelAndView registrate(Model model,@ModelAttribute("form") AuthenticationRequestDto form) {
+    public ModelAndView registrate(
+            @Valid @ModelAttribute("form") AuthenticationRequestDto form,
+            BindingResult bindingResult,
+            Model model) {
         try {
+            if(bindingResult.hasErrors()){
+                ModelAndView modelAndView = new ModelAndView("registration");
+                model.addAttribute("form", form);
+
+                return modelAndView;
+            }
             ModelAndView response = new ModelAndView();
 
             String userName = form.getUsername();
             String password = form.getPassword();
 
 
-            if (registrate(new User(userName, password, false, null)) == null) {
+            if (userService.registrate(new User(userName, password, false, null)) == null) {
                 response.addObject("errorMessage", "ERROR USER IS ALREADY EXIST");
                 response.setViewName("registration");
                 return response;
@@ -98,19 +129,5 @@ public class AuthenticationRestControllerV1 {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
-    }
-
-    public User registrate (User user){
-        User userFromDB = (User)userRepository.findByUsername(user.getUsername());
-        if (userFromDB != null) {
-            return null;
-        }
-        User newUser = new User();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(user.getPassword());
-        newUser.setActive(false);
-        newUser.setRoles(Collections.singleton(Role.USER));
-        userRepository.save(newUser);
-        return newUser;
     }
 }

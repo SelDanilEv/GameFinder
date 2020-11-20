@@ -11,7 +11,7 @@ public class AdminUserDto {
 
     public User toUser(){
         User user = new User();
-        user.setIdUser(id);
+        user.setId(id);
         user.setUsername(username);
         user.setActive(active);
         return user;
@@ -19,7 +19,7 @@ public class AdminUserDto {
 
     public static AdminUserDto fromUser(User user) {
         AdminUserDto userDto = new AdminUserDto();
-        userDto.setId(user.getIdUser());
+        userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setActive(user.isActive());
         return userDto;

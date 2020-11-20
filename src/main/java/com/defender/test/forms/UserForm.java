@@ -21,7 +21,7 @@ public class UserForm {
     }
 
     public UserForm(User user) {
-        this.idUser = user.getIdUser();
+        this.idUser = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.roles = user.getRoles();
