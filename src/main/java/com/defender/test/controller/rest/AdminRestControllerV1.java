@@ -3,26 +3,16 @@ package com.defender.test.controller.rest;
 import com.defender.test.forms.*;
 import com.defender.test.models.Championship;
 import com.defender.test.models.Game;
-import com.defender.test.models.Rating;
-import com.defender.test.models.User;
 import com.defender.test.repository.ChampionshipRepository;
 import com.defender.test.repository.GameRepository;
-import com.defender.test.repository.RatingRepository;
-import com.defender.test.repository.UserRepository;
 import com.defender.test.service.ChampionshipService;
 import com.defender.test.service.GameService;
-import com.defender.test.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
-import java.util.List;
 
 
 @RestController
@@ -43,12 +33,6 @@ public class AdminRestControllerV1 {
 
     @Autowired
     private ChampionshipService championshipService;
-
-    @Autowired
-    private RatingRepository ratingRepository;
-
-    @Autowired
-    private RatingService ratingService;
 
     @Autowired
     public AdminRestControllerV1() {
@@ -188,69 +172,13 @@ public class AdminRestControllerV1 {
         return toAdminPage(model);
     }
     //------------------------
-    @PostMapping("/AddRating")
-    public ModelAndView addRating(
-            @ModelAttribute("RatingForm") RatingDto form,
-            BindingResult bindingResult,
-            Model model) {
-        ratingService.AddNewRating(ratingService.FromDto(form));
 
-        Iterable<Rating> ratings = ratingRepository.findAll();
-        model.addAttribute("ratings", ratings);
 
-        return toAdminPage(model);
-    }
-
-    @PostMapping("/ChangeRating")
-    public ModelAndView changeRating(
-            @ModelAttribute("RatingForm") RatingDto form,
-            BindingResult bindingResult,
-            Model model) {
-        ratingService.EditRating(ratingService.FromDto(form));
-
-        Iterable<Rating> ratings = ratingRepository.findAll();
-        model.addAttribute("ratings", ratings);
-
-        return toAdminPage(model);
-    }
-
-    @PostMapping("/DeleteRating")
-    public ModelAndView deleteRating(
-            @ModelAttribute("RatingForm") RatingDto form,
-            BindingResult bindingResult,
-            Model model) {
-        ratingService.DeleteRating(ratingService.FromDto(form));
-
-        Iterable<Rating> ratings = ratingRepository.findAll();
-        model.addAttribute("ratings", ratings);
-
-        return toAdminPage(model);
-    }
-
-    @PostMapping("/RatingFilter")
-    public ModelAndView RatingFilter(
-            @RequestParam String filter,
-            Model model) {
-        Iterable<Rating> ratings = null;
-        if(filter!="") {
-            //do filteres
-            ratings = ratingRepository.findAll();
-        }
-        else{
-            ratings = ratingRepository.findAll();
-        }
-        model.addAttribute("ratings", ratings);
-        return toAdminPage(model);
-    }
-    
 
     public ModelAndView toAdminPage(Model model){
         ChampionshipDto champForm = new ChampionshipDto();
         model.addAttribute("ChampionshipForm", champForm);
 
-        RatingDto ratingForm = new RatingDto();
-        model.addAttribute("RatingForm", ratingForm);
-        
         GameDto gameForm = new GameDto();
         model.addAttribute("GameForm", gameForm);
         
