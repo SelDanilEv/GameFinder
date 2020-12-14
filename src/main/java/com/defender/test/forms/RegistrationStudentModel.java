@@ -22,32 +22,10 @@ public class RegistrationStudentModel {
     @Length(min = 8, max = 16, message = "Password length must be between 8 and 16 characters")
     private String password;
 
-    @NotBlank(message = "First Name cannot be empty")
-    private String firstName;
-
-    @NotBlank(message = "Last Name cannot be empty")
-    private String lastName;
-
-    @NotBlank(message = "Middle Name cannot be empty")
-    private String middleName;
-
-    private Faculty facultyName;
-
-    private Integer userCourse;
-
-    private Integer userGroup;
-
     public User ToUser() {
         return new User(
                 this.getUsername(),
-                this.getFirstName(),
-                this.getLastName(),
-                this.getMiddleName(),
-                this.getEmail(),
-                this.getPassword(),
-                this.getFacultyName(),
-                this.getUserCourse(),
-                this.getUserGroup()
+                this.getPassword()
         );
     }
 }

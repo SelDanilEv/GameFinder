@@ -30,10 +30,7 @@ public class RegistrationTeacherModel {
     public User ToUser(){
         return new User(
                 this.getUsername(),
-                this.getPassword(),
-                this.getFirstName(),
-                this.getLastName(),
-                this.getMiddleName()
+                this.getPassword()
         );
     }
 }

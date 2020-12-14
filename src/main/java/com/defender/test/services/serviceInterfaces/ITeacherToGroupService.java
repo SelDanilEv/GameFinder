@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ITeacherToGroupService {
     void addRecord(TeacherToGroupDto teacherToGroupDto);
-    List<User> getStudents(String facultyName, String subjectName, Integer groupValue, Integer courseValue, String username);
+//    List<User> getStudents(String facultyName, String subjectName, Integer groupValue, Integer courseValue, String username);
 }

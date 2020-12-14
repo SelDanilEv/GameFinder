@@ -42,24 +42,24 @@ public class TeacherRestControllerV1 {
         this.iUserRepository = iUserRepository;
     }
 
-    @GetMapping(value = "/getStudents")
-    public ResponseEntity<List<StudentDto>> getStudentByUsername(@RequestParam Map<String, String> mapParam){
-        var facultyName = mapParam.get("faculty");
-        var subjectName = mapParam.get("subjectName");
-        var group = Integer.parseInt(mapParam.get("userCourse"));
-        var course = Integer.parseInt(mapParam.get("userGroup"));
-        var username = mapParam.get("userName");
-
-        var userList = teacherToGroupService.getStudents(facultyName, subjectName, group, course, username);
-        List<StudentDto> studentDtoList = new ArrayList<>();
-        if(userList != null){
-            for(var i: userList){
-                studentDtoList.add(StudentDto.fromUser(i));
-            }
-        }
-        log.info("Get request : /api/v1/auth/getStudents");
-        return new ResponseEntity<>(studentDtoList, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/getStudents")
+//    public ResponseEntity<List<StudentDto>> getStudentByUsername(@RequestParam Map<String, String> mapParam){
+//        var facultyName = mapParam.get("faculty");
+//        var subjectName = mapParam.get("subjectName");
+//        var group = Integer.parseInt(mapParam.get("userCourse"));
+//        var course = Integer.parseInt(mapParam.get("userGroup"));
+//        var username = mapParam.get("userName");
+//
+//        var userList = teacherToGroupService.getStudents(facultyName, subjectName, group, course, username);
+//        List<StudentDto> studentDtoList = new ArrayList<>();
+//        if(userList != null){
+//            for(var i: userList){
+//                studentDtoList.add(StudentDto.fromUser(i));
+//            }
+//        }
+//        log.info("Get request : /api/v1/auth/getStudents");
+//        return new ResponseEntity<>(studentDtoList, HttpStatus.OK);
+//    }
 
     @GetMapping(value = "/getStudentsAll")
     public ResponseEntity<List<StudentDto>> getStudentsAll(){

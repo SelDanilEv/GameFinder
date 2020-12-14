@@ -20,23 +20,11 @@ load = async () => {
     ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.username + "</li>";
 
     //admin
-    if(length == 8)
+    if(length == 3)
     {
-        ulk.innerHTML += "<li>First Name</li>"
-        ulk.innerHTML += "<li>Surname</li>"
         ulk.innerHTML += "<li>Email</li>"
-        ulk.innerHTML += "<li>Middle Name</li>"
-        ulk.innerHTML += "<li>Faculty</li>"
-        ulk.innerHTML += "<li>Course</li>"
-        ulk.innerHTML += "<li>Group</li>"
 
-        ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.firstName + "</li>";
-        ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.lastName + "</li>";
         ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.email + "</li>";
-        ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.middleName + "</li>";
-        ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.facultyName.faculty + "</li>";
-        ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.userCourse + "</li>";
-        ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.userGroup + "</li>";
         let ulk2 = document.getElementById("buttt");
         ulk2.innerHTML += "<button type=\"button\" id=\"but\" class=\"btn btn-secondary btn-lg btn-block\" onclick='onStudentPage()' style=\"margin-left: 35px; margin-bottom: 20px; height: 50px; width:280px\"></button>";
         document.getElementById("but").innerHTML = "view ratings";

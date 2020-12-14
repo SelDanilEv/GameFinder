@@ -32,7 +32,7 @@ public class    UserService implements IUserService {
 
     @Override
     public User register(User user) {
-        Role roleUser = (user.getFacultyName() == null) ? roleRepository.findByName("ROLE_TEACHER"): roleRepository.findByName("ROLE_STUDENT");
+        Role roleUser = roleRepository.findByName("ROLE_PLAYER");
 
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);
@@ -74,13 +74,5 @@ public class    UserService implements IUserService {
     public void delete(Long id) {
         log.info("UserService : delete");
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public List<User> getTeachers() {
-        log.info("UserService : getTeachers");
-        return userRepository.findAll().stream()
-                                               .filter(x -> x.getRoles().get(0).getName().equals("ROLE_TEACHER"))
-                                               .collect(Collectors.toList());
     }
 }

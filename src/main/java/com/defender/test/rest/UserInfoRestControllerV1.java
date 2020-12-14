@@ -51,9 +51,9 @@ public class UserInfoRestControllerV1 {
         String username = jwtTokenProvider.getUsername(token);
         User user = userService.findByUsername(username);
         Role role = user.getRoles().get(0);
-        if(role.getName().equals("ROLE_STUDENT")) {
+        if(role.getName().equals("ROLE_PLAYER")) {
             StudentDto studentDto = StudentDto.fromUser(user);
-            log.info("Get request : /api/v1/userinfo/ -- ROLE_STUDENT");
+            log.info("Get request : /api/v1/userinfo/ -- ROLE_PLAYER");
             return new ResponseEntity<>(studentDto, HttpStatus.OK);
         }else if(role.getName().equals("ROLE_TEACHER")){
             TeacherDto teacherDto = TeacherDto.fromUser(user);

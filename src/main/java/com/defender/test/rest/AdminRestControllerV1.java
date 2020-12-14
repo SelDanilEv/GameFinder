@@ -54,15 +54,15 @@ public class AdminRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = {"teachers"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TeacherDto>> facultyList() {
-        List<TeacherDto> teacherDto = new ArrayList<>();
-        for (var i:userService.getTeachers()){
-            teacherDto.add(TeacherDto.fromUser(i));
-        }
-        log.info("Get request : /api/v1/admin/teachers");
-        return new ResponseEntity<>(teacherDto, HttpStatus.OK);
-    }
+//    @GetMapping(value = {"teachers"}, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<List<TeacherDto>> facultyList() {
+//        List<TeacherDto> teacherDto = new ArrayList<>();
+//        for (var i:userService.getTeachers()){
+//            teacherDto.add(TeacherDto.fromUser(i));
+//        }
+//        log.info("Get request : /api/v1/admin/teachers");
+//        return new ResponseEntity<>(teacherDto, HttpStatus.OK);
+//    }
 
     @PostMapping("addSubject")
     public ResponseEntity addSubject(RequestEntity<Subject> subject) {

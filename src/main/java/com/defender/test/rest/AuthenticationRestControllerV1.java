@@ -56,19 +56,28 @@ public class AuthenticationRestControllerV1 {
         this.studentValidator = studentValidator;
         this.teacherValidator = teacherValidator;
     }
-    @RequestMapping(value = "/registerStudent", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> Register(@Valid @RequestBody RegistrationStudentModel userDetails, BindingResult errors) throws MethodArgumentNotValidException {
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ResponseEntity<User> Register(@RequestBody AuthenticationRequestDto requestDto) throws MethodArgumentNotValidException {
 
-        studentValidator.validate(userDetails, errors);
+        try {
+            String username = requestDto.getUsername();
+            User user = userService.findByUsername(username);
+            if (user != null) {
+                throw new UsernameNotFoundException("User with username: " + username + " already exist");
+            }
 
-        if(errors.hasErrors()){
-            throw new UserValidationException(errors);
+            user = new User(requestDto.getUsername(),requestDto.getPassword());
+
+            userService.register(user);
+
+            Map<Object, Object> response = new HashMap<>();
+
+            log.info("Get request : /api/v1/auth/registration");
+            return new ResponseEntity<>(user,HttpStatus.CREATED);
+        } catch (AuthenticationException e) {
+            log.info("Get request : /api/v1/auth/registration ---- Invalid username");
+            throw new BadCredentialsException("Invalid username or password");
         }
-
-        User user = userDetails.ToUser();
-        userService.register(user);
-        log.info("Get request : /api/v1/auth/registerStudent");
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/registerTeacher", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

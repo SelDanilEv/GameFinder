@@ -47,21 +47,21 @@ public class TeacherToGroupService implements ITeacherToGroupService {
         log.info("TeacherToGroupService : addRecord");
     }
 
-    @Override
-    public List<User> getStudents(String facultyName, String subjectName, Integer group, Integer course, String username) {
-        Faculty faculty = iFacultyRepository.findByFaculty(facultyName);
-        Subject subject = iSubjectRepository.findBySubject(subjectName).get(0);
-        User user1 = iUserRepository.findByUsername(username);
-
-        var subjList = iTeacherToGroupRepository.findByUser(user1);
-        List<User> students = new ArrayList<>();
-        for(var i: subjList){
-            if(i.getSubject().getSubject().equals(subject.getSubject())){
-                students = iUserRepository.findByUserCourseAndFacultyNameAndUserGroup(course, faculty, group);
-                break;
-            }
-        }
-        log.info("TeacherToGroupService : getStudents");
-        return students;
-    }
+//    @Override
+//    public List<User> getStudents(String facultyName, String subjectName, Integer group, Integer course, String username) {
+//        Faculty faculty = iFacultyRepository.findByFaculty(facultyName);
+//        Subject subject = iSubjectRepository.findBySubject(subjectName).get(0);
+//        User user1 = iUserRepository.findByUsername(username);
+//
+//        var subjList = iTeacherToGroupRepository.findByUser(user1);
+//        List<User> students = new ArrayList<>();
+//        for(var i: subjList){
+//            if(i.getSubject().getSubject().equals(subject.getSubject())){
+//                students = iUserRepository.findByUserCourseAndFacultyNameAndUserGroup(course, faculty, group);
+//                break;
+//            }
+//        }
+//        log.info("TeacherToGroupService : getStudents");
+//        return students;
+//    }
 }
