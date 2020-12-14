@@ -1,5 +1,6 @@
 package com.defender.test.services;
 
+import com.defender.test.model.Request;
 import com.defender.test.model.Status;
 import com.defender.test.model.Championship;
 import com.defender.test.repositories.IChampionshipRepository;
@@ -29,10 +30,14 @@ public class ChampionshipService implements IChampionshipService {
 
     @Override
     public void deleteChampionshipByName(String name) {
-        Championship deChampionship = this.championshipRepository.findByName(name).get(0);
+        Championship deChampionship = this.championshipRepository.findAllByName(name).get(0);
         deChampionship.setStatus(Status.DELETED);
         this.championshipRepository.save(deChampionship);
         log.info("ChampionshipService : deleteSubjectByName");
+    }
+
+    public Championship findByName(String name){
+        return championshipRepository.findByName(name);
     }
 
     @Override

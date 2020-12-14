@@ -1,5 +1,6 @@
 package com.defender.test.services;
 
+import com.defender.test.model.Championship;
 import com.defender.test.model.Role;
 import com.defender.test.model.Status;
 import com.defender.test.model.User;
@@ -29,6 +30,9 @@ public class    UserService implements IUserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public User findByUserName(String name){
+        return userRepository.findByUsername(name);
+    }
 
     @Override
     public User register(User user) {

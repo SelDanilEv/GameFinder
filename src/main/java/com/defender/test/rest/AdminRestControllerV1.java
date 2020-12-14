@@ -1,7 +1,6 @@
 package com.defender.test.rest;
 
 import com.defender.test.dto.AdminUserDto;
-import com.defender.test.model.Request;
 import com.defender.test.model.Championship;
 import com.defender.test.model.User;
 import com.defender.test.services.RequestService;
@@ -23,13 +22,13 @@ public class AdminRestControllerV1 {
 
     private final UserService userService;
     private final ChampionshipService subjectService;
-    private final RequestService facultyService;
+    private final RequestService requestService;
 
     @Autowired
-    public AdminRestControllerV1(UserService userService, ChampionshipService subjectService, RequestService facultyService) {
+    public AdminRestControllerV1(UserService userService, ChampionshipService subjectService, RequestService requestService) {
         this.userService = userService;
         this.subjectService = subjectService;
-        this.facultyService = facultyService;
+        this.requestService = requestService;
     }
 
     @GetMapping(value = "users/{username}")
@@ -46,11 +45,11 @@ public class AdminRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PostMapping("addSubject")
-    public ResponseEntity addSubject(RequestEntity<Championship> subject) {
-        subjectService.addChampionship(Objects.requireNonNull(subject.getBody()).getName());
-        log.info("Get request : /api/v1/admin/addSubject");
-        return new ResponseEntity<>(Objects.requireNonNull(subject.getBody()).getName(), HttpStatus.CREATED);
+    @PostMapping("addChampionship")
+    public ResponseEntity addChampionship(RequestEntity<Championship> championship) {
+        subjectService.addChampionship(Objects.requireNonNull(championship.getBody()).getName());
+        log.info("Get request : /api/v1/admin/addChampionship");
+        return new ResponseEntity<>(Objects.requireNonNull(championship.getBody()).getName(), HttpStatus.CREATED);
     }
 
 //    @PostMapping("addRequest")
@@ -60,10 +59,10 @@ public class AdminRestControllerV1 {
 //        return new ResponseEntity<>(Objects.requireNonNull(faculty.getBody()).getRequest(), HttpStatus.CREATED);
 //    }
 
-    @PutMapping("deActivateSubject")
-    public ResponseEntity deActivateSubject(RequestEntity<Championship> subject) {
-        subjectService.deleteChampionshipByName(Objects.requireNonNull(subject.getBody()).getName());
-        log.info("Get request : /api/v1/admin/deActivateSubject");
-        return new ResponseEntity<>(Objects.requireNonNull(subject.getBody()).getName(), HttpStatus.CREATED);
+    @PutMapping("deActivateChampionship")
+    public ResponseEntity deActivateChampionship(RequestEntity<Championship> championship) {
+        subjectService.deleteChampionshipByName(Objects.requireNonNull(championship.getBody()).getName());
+        log.info("Get request : /api/v1/admin/deActivateChampionship");
+        return new ResponseEntity<>(Objects.requireNonNull(championship.getBody()).getName(), HttpStatus.CREATED);
     }
 }

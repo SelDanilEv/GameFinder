@@ -6,8 +6,6 @@ import com.defender.test.model.User;
 
 import java.util.List;
 
-public interface IRequestService {
-    List<Request> findAll();
-
+public interface IMyRequestService {
     void addRequest(String status, String message, User user, Championship championship);
 }

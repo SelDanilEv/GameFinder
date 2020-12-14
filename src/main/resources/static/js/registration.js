@@ -1,114 +1,15 @@
-function clearFields(){
-    document.getElementById("smusername").innerHTML = "";
-    document.getElementById("smemail").innerHTML = "";
-    document.getElementById("smpassword").innerHTML = "";
-    document.getElementById("smfirstName").innerHTML = "";
-    document.getElementById("smmiddleName").innerHTML = "";
-    document.getElementById("smlastName").innerHTML = "";
-    document.getElementById("smsubmitPassword").innerHTML = "";
-    document.getElementById("res").innerHTML = "";
+function clearFields() {
+    document.getElementById("message").innerHTML = "";
+    document.getElementById("addChampionshipName").innerHTML = "";
 }
 
-
-async function Register()
-{
-    let username = document.getElementById("username").value;
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    let firstName = document.getElementById("firstName").value;
-    let middleName = document.getElementById("middleName").value;
-    let lastName = document.getElementById("lastName").value;
-    let sel = document.getElementById("select-box1");
-    let facultyName = sel.options[sel.selectedIndex].textContent;
-    let userCourse = document.getElementById("userCourse").value;
-    let userGroup = document.getElementById("userGroup").value;
-    clearFields();
-    if(password !== document.querySelector("#submitPassword").value)
-    {
-        document.getElementById("smsubmitPassword").innerHTML = "Passwords are not the same";
-        return
-    }
-    let response = await fetch("/api/v1/auth/registerPlayer",
-    {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-        body: JSON.stringify({
-            username: username,
-            email: email,
-            password: password,
-            firstName: firstName,
-            middleName: middleName,
-            lastName: lastName,
-            facultyName: facultyName,
-            userCourse: userCourse,
-            userGroup: userGroup
-            })
-    });
-    if(response.status === 201)
-    {
-        document.getElementById("res").innerHTML = "user registered";
-        return;
-    }
-    else
-    {
-        let data = await response.json();
-        data.errors.forEach(err =>
-        {
-            document.getElementById("sm" + err.field).innerHTML = err.message;
-        });
-    }
-}
-async function addSubject(){
-    let jwt = localStorage.getItem("jwt");
-    if(jwt== null){
-        document.location.href = "/login";
-    }
-    let subjName = document.getElementById("addSubjectName").value;
-    await fetch("/api/v1/admin/addSubject",
-        {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer_' + jwt},
-            body: JSON.stringify({
-                subject: subjName
-            })
-        });
-    document.getElementById("addSubjectName").value= "";
-    setSubjects();
-}
-
-async function addRequest(){
-    let jwt = localStorage.getItem("jwt");
-    if(jwt== null){
-        document.location.href = "/login";
-    }
-    let facultyName = document.getElementById("addRequestName").value;
-    await fetch("/api/v1/admin/addRequest",
-        {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer_' + jwt},
-            body: JSON.stringify({
-                faculty: facultyName
-            })
-        });
-    document.getElementById("addRequestName").value= "";
-    setFaculties();
-}
-
-async function addTeacherToGroup() {
+async function addChampionship() {
     let jwt = localStorage.getItem("jwt");
     if (jwt == null) {
         document.location.href = "/login";
     }
-    let sel = document.getElementById("select-box3");
-    let facultyName = sel.options[sel.selectedIndex].textContent;
-    let sel2 = document.getElementById("teachers");
-    let userName = sel2.options[sel2.selectedIndex].textContent;
-    let sel3 = document.getElementById("subjects");
-    let subjectName = sel3.options[sel3.selectedIndex].textContent;
-    let userCourse = document.getElementById("Course").value;
-    let userGroup = document.getElementById("Group").value;
-
-    await fetch("/api/v1/admin/addTeacherToGroupRecord",
+    let champName = document.getElementById("addChampionshipName").value;
+    await fetch("/api/v1/admin/addChampionship",
         {
             method: 'POST',
             headers: {
@@ -117,151 +18,115 @@ async function addTeacherToGroup() {
                 'Authorization': 'Bearer_' + jwt
             },
             body: JSON.stringify({
-                faculty: facultyName,
-                course: userCourse,
-                tgroup: userGroup,
-                user: userName,
-                subject: subjectName
+                name: champName,
             })
         });
-    document.getElementById("Course").value = "";
-    document.getElementById("Group").value = "";
+    document.getElementById("addChampionshipName").value = "";
+    setChampionship();
 }
 
-async function deleteSubject(){
+async function deleteChampionship() {
     let jwt = localStorage.getItem("jwt");
-    if(jwt== null){
+    if (jwt == null) {
         document.location.href = "/login";
     }
     let sel = document.getElementById("select-box2");
-    let subjectName = sel.options[sel.selectedIndex].textContent;
-    await fetch("/api/v1/admin/deActivateSubject",
+    let champName = sel.options[sel.selectedIndex].textContent;
+    await fetch("/api/v1/admin/deActivateChampionship",
         {
             method: 'PUT',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer_' + jwt},
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer_' + jwt
+            },
             body: JSON.stringify({
-                subject: subjectName
+                name: champName
             })
         });
-    document.getElementById("addSubjectName").value= "";
-    setSubjects();
+    document.getElementById("addChampionshipName").value = "";
+    setChampionship();
 }
 
-async function RegisterTeacher()
-{
-    let username = document.getElementById("usernameTeacher").value;
-    let password = document.getElementById("passwordTeacher").value;
-    let firstName = document.getElementById("firstNameTeacher").value;
-    let middleName = document.getElementById("middleNameTeacher").value;
-    let lastName = document.getElementById("lastNameTeacher").value;
-    clearFieldsTeacher();
-    if(password !== document.querySelector("#submitPasswordTeacher").value)
-    {
-        document.getElementById("smsubmitPasswordTeacher").innerHTML = "Passwords are not the same";
-        return
+async function setChampionship() {
+    let response = await fetch("api/v1/auth/championships",
+        {
+            method: 'GET', mode: 'no-cors',
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        });
+    let data = await response.json();
+    let select = document.getElementById("select-box2");
+    select.innerHTML = "";
+    let i = 1;
+    data.forEach(el => {
+        select.innerHTML += "<option value=\"Choice " + i + "\">" + el.name + "</option>";
+        i++;
+    });
+}
+
+async function addRequest() {
+    let jwt = localStorage.getItem("jwt");
+    if (jwt == null) {
+        document.location.href = "/login";
     }
-    let response = await fetch("/api/v1/auth/registerTeacher",
+    let facultyName = document.getElementById("addRequestName").value;
+    await fetch("/api/v1/admin/addRequest",
         {
             method: 'POST',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer_' + jwt
+            },
             body: JSON.stringify({
-                username: username,
-                password: password,
-                firstName: firstName,
-                middleName: middleName,
-                lastName: lastName,
+                faculty: facultyName
             })
         });
-    if(response.status === 201)
-    {
-        document.getElementById("res").innerHTML = "user registered";
-        return;
-    }
-    else
-    {
-        let data = await response.json();
-        data.errors.forEach(err =>
+    document.getElementById("addRequestName").value = "";
+    setFaculties();
+}
+
+async function chooseRequest() {
+    let req = document.getElementById("Request-select");
+    let str = req.options[req.selectedIndex].text;
+    if (!str) return;
+    let response = await fetch("api/v1/auth/request",
         {
-            document.getElementById("sm" + err.field + "Teacher").innerHTML = err.message;
+            method: 'POST', mode: 'no-cors',
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            body: JSON.stringify(
+                str
+            )
         });
-    }
+    let data = await response.json();
+    let select = document.getElementById("message");
+    select.innerHTML = "";
+    select.innerHTML += data.message;
 }
-function clearFieldsTeacher(){
-    document.getElementById("smusernameTeacher").innerHTML = "";
-    document.getElementById("smpasswordTeacher").innerHTML = "";
-    document.getElementById("smfirstNameTeacher").innerHTML = "";
-    document.getElementById("smlastNameTeacher").innerHTML = "";
-    document.getElementById("smmiddleNameTeacher").innerHTML = "";
-    document.getElementById("smsubmitPasswordTeacher").innerHTML = "";
-    document.getElementById("res").innerHTML = "";
-}
-async function setFaculties() {
-    let response = await fetch("api/v1/auth/faculties",
+
+async function setRequests() {
+    let response = await fetch("api/v1/auth/requests",
         {
             method: 'GET', mode: 'no-cors',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         });
     let data = await response.json();
-    var select = document.getElementById("select-box1");
-    var select2 = document.getElementById("select-box3");
-
-    var i = 1;
+    let select = document.getElementById("Request-select");
     select.innerHTML = "";
+    let i = 1;
     data.forEach(el => {
-        select.innerHTML += "<option value=\"Choice " + i + "\">" + el.faculty + "</option>";
-        select2.innerHTML += "<option value=\"Choice " + i + "\">" + el.faculty + "</option>";
+        select.innerHTML += "<option value=\"Choice " + i + "\">" + el.user + " => " + el.championship + "</option>";
         i++;
     });
 }
-async function setSubjects() {
-    let response = await fetch("api/v1/auth/subjects",
-        {
-            method: 'GET', mode: 'no-cors',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
-        });
-    let data = await response.json();
-    var select = document.getElementById("select-box2");
-    var select2 = document.getElementById("subjects");
-    select.innerHTML = "";
-    select2.innerHTML = "";
-    var i = 1;
-    data.forEach(el => {
-        select.innerHTML += "<option value=\"Choice " + i + "\">" + el.subject + "</option>";
-        select2.innerHTML += "<option value=\"Choice " + i + "\">" + el.subject + "</option>";
-        i++;
-    });
-}
-async function setTeachers() {
-    let jwt = localStorage.getItem("jwt");
-    let response = await fetch("/api/v1/admin/teachers",
-        {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer_' + jwt}
-        });
-    let data = await response.json();
-    var select2 = document.getElementById("teachers");
-    select2.innerHTML = "";
-    var i = 1;
-    data.forEach(el => {
-        select2.innerHTML += "<option value=\"Choice " + i + "\">" + el.username  + "</option>";
-        i++;
-    });
-}
-setTeachers();
-setSubjects();
 
-setFaculties();
+window.load = init();
 
-function changeOnTeacherForm(){
-    document.getElementById("student-div").style.display = "none";
-    document.getElementById("teacher-div").style.display = "block";
-}
-
-function changeOnPlayerForm(){
-    document.getElementById("student-div").style.display = "block";
-    document.getElementById("teacher-div").style.display = "none";
-}
-hide_result = () =>{
-    document.getElementById("res").innerHTML = "";
+function init() {
+    setTimeout(() => {
+        setChampionship();
+        setRequests();
+        chooseRequest();
+    }, 100);
 }
 

@@ -1,12 +1,14 @@
 package com.defender.test.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Request {
     @Id
+    @GeneratedValue
     private int id;
     private String message;
     private String status;

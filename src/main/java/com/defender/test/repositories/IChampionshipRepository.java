@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IChampionshipRepository extends JpaRepository<Championship, Integer> {
-    List<Championship> findByName(String name);
+    List<Championship> findAllByName(String name);
+    Championship findByName(String name);
     <S extends Championship> S save(S s);
 }

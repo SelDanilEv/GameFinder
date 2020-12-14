@@ -1,13 +1,17 @@
 package com.defender.test.rest;
 
 import com.defender.test.dto.PlayerDto;
+import com.defender.test.dto.RequestDto;
 import com.defender.test.model.*;
 import com.defender.test.repositories.IChampionshipRepository;
 import com.defender.test.repositories.IUserRepository;
+import com.defender.test.services.ChampionshipService;
+import com.defender.test.services.RequestService;
 import com.defender.test.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,20 +20,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/v1/players/")
 public class PlayerRestControllerV1 {
     private final UserService userService;
-    private final IChampionshipRepository iChampionshipRepository;
-    private final IUserRepository iUserRepository;
+    private final ChampionshipService championshipService;
+    private final RequestService requestService;
+
     @Autowired
-    public PlayerRestControllerV1(UserService userService, IChampionshipRepository iChampionshipRepository, IUserRepository iUserRepository) {
+    public PlayerRestControllerV1(UserService userService, ChampionshipService championshipService, RequestService requestService) {
         this.userService = userService;
-        this.iChampionshipRepository = iChampionshipRepository;
-        this.iUserRepository = iUserRepository;
+        this.championshipService = championshipService;
+        this.requestService = requestService;
     }
 
     @GetMapping(value = "{username}")
-    public ResponseEntity<PlayerDto> getPlayerByUsername(@PathVariable(name = "username") String username){
+    public ResponseEntity<PlayerDto> getPlayerByUsername(@PathVariable(name = "username") String username) {
         User user = userService.findByUsername(username);
 
-        if(user == null){
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
@@ -37,4 +42,5 @@ public class PlayerRestControllerV1 {
         log.info("Get request : /api/v1/auth/username");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
 }

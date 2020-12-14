@@ -3,20 +3,21 @@ package com.defender.test.rest;
 import com.defender.test.Validator.PlayerValidator;
 import com.defender.test.dto.AdminUserDto;
 import com.defender.test.dto.PlayerDto;
+import com.defender.test.model.Championship;
 import com.defender.test.model.Role;
 import com.defender.test.model.User;
 import com.defender.test.security.jwt.JwtTokenProvider;
+import com.defender.test.services.ChampionshipService;
 import com.defender.test.services.RequestService;
 import com.defender.test.services.UserService;
+import com.defender.test.services.serviceInterfaces.IChampionshipService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,15 +30,17 @@ public class UserInfoRestControllerV1 {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
-    private final RequestService facultyService;
+    private final RequestService requestService;
+    private final ChampionshipService championshipService;
     private final PlayerValidator playerValidator;
 
     @Autowired
-    public UserInfoRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, RequestService facultyService, PlayerValidator playerValidator) {
+    public UserInfoRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, RequestService requestService, ChampionshipService championshipService, PlayerValidator playerValidator) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
-        this.facultyService = facultyService;
+        this.requestService = requestService;
+        this.championshipService = championshipService;
         this.playerValidator = playerValidator;
     }
 
@@ -49,7 +52,7 @@ public class UserInfoRestControllerV1 {
         Role role = user.getRoles().get(0);
         if(role.getName().equals("ROLE_PLAYER")) {
             PlayerDto playerDto = PlayerDto.fromUser(user);
-            log.info("Get request : /api/v1/userinfo/ -- ROLE_PLAYER");
+            log.info("Get request : /api/v1/userinfo/ -- PLAYER");
             return new ResponseEntity<>(playerDto, HttpStatus.OK);
         }else{
             AdminUserDto adminUserDto = AdminUserDto.fromUser(user);

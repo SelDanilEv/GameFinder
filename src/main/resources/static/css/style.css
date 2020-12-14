@@ -1,6 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:700,800);
 
-
 :focus { outline: none; }
 ::-webkit-input-placeholder { color: #DEDFDF; }
 ::-moz-placeholder { color: #DEDFDF; }
@@ -16,9 +15,10 @@ body {
 }
 
 .for {
-    width: 370px;
+    width: fit-content;
     left: 10%;
     top: 3%;
+    margin: 0 auto;
 }
 input[type="number"] {
     vertical-align: top;
@@ -131,4 +131,13 @@ input:focus {
     outline-color: rgba(0,0,0,0);
     background: rgba(255,255,255,.95);
     color: #e74c3c;
+}
+
+#wrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+.req_butt{
+    width: 200px;
 }

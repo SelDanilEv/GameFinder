@@ -27,14 +27,14 @@ load = async () => {
         ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.email + "</li>";
         let ulk2 = document.getElementById("buttt");
         ulk2.innerHTML += "<button type=\"button\" id=\"but\" class=\"btn btn-secondary btn-lg btn-block\" onclick='onPlayerPage()' style=\"margin-left: 35px; margin-bottom: 20px; height: 50px; width:280px\"></button>";
-        document.getElementById("but").innerHTML = "view ratings";
+        document.getElementById("but").innerHTML = "TO CLIENT PAGE";
     }else
     {
         let ulk2 = document.getElementById("buttt");
         ulk2.innerHTML += "<button type=\"button\" id=\"but\" class=\"btn btn-secondary btn-lg btn-block\" onclick='onAdminPage()' style=\"margin-left: 35px; margin-bottom: 20px; height: 50px; width:280px\"></button>";
         document.getElementById("user_info").style.marginTop = "90px";
         document.getElementById("spisok").style.marginTop = "50px";
-        document.getElementById("but").innerHTML = "admin panel";
+        document.getElementById("but").innerHTML = "TO ADMIN PANEL";
     }
 
 }
