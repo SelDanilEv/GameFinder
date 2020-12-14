@@ -45,16 +45,12 @@ public class WebConfig implements WebMvcConfigurer {
         return new BCryptPasswordEncoder();
     }
 
-
-
-
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/login").setViewName("loginPage");
         registry.addViewController("/register").setViewName("registrationPage");
-        registry.addViewController("/student").setViewName("studentPage");
-        registry.addViewController("/teacher").setViewName("teacherPage");
+        registry.addViewController("/player").setViewName("playerPage");
         registry.addViewController("/admin").setViewName("adminPage");
     }
 }

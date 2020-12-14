@@ -30,15 +30,15 @@ public class UserInfoRestControllerV1 {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
     private final FacultyService facultyService;
-    private final PlayerValidator studentValidator;
+    private final PlayerValidator playerValidator;
 
     @Autowired
-    public UserInfoRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, PlayerValidator studentValidator) {
+    public UserInfoRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, PlayerValidator playerValidator) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
         this.facultyService = facultyService;
-        this.studentValidator = studentValidator;
+        this.playerValidator = playerValidator;
     }
 
     @GetMapping(value = {"/"}, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,9 +48,9 @@ public class UserInfoRestControllerV1 {
         User user = userService.findByUsername(username);
         Role role = user.getRoles().get(0);
         if(role.getName().equals("ROLE_PLAYER")) {
-            PlayerDto studentDto = PlayerDto.fromUser(user);
+            PlayerDto playerDto = PlayerDto.fromUser(user);
             log.info("Get request : /api/v1/userinfo/ -- ROLE_PLAYER");
-            return new ResponseEntity<>(studentDto, HttpStatus.OK);
+            return new ResponseEntity<>(playerDto, HttpStatus.OK);
         }else{
             AdminUserDto adminUserDto = AdminUserDto.fromUser(user);
             log.info("Get request : /api/v1/userinfo/ -- ADMIN");

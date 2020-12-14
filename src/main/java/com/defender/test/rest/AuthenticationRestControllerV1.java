@@ -37,16 +37,16 @@ public class AuthenticationRestControllerV1 {
     private final UserService userService;
     private final FacultyService facultyService;
     private final ChampionshipService subjectService;
-    private final PlayerValidator studentValidator;
+    private final PlayerValidator playerValidator;
 
     @Autowired
-    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, ChampionshipService subjectService, PlayerValidator studentValidator) {
+    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, ChampionshipService subjectService, PlayerValidator playerValidator) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
         this.facultyService = facultyService;
         this.subjectService = subjectService;
-        this.studentValidator = studentValidator;
+        this.playerValidator = playerValidator;
     }
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ResponseEntity<User> Register(@RequestBody AuthenticationRequestDto requestDto) throws MethodArgumentNotValidException {

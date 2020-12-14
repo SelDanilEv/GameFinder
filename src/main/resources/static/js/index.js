@@ -44,11 +44,7 @@ onAdminPage = () => {
 }
 
 onPlayerPage = () => {
-    document.location.href = "/student";
-}
-
-onTeacherPage = () => {
-    document.location.href = "/teacher";
+    document.location.href = "/player";
 }
 
 logout = () => {

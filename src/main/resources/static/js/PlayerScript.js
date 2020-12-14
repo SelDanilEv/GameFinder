@@ -1,5 +1,3 @@
-
-
 async function setFaculties() {
     let jwt = localStorage.getItem("jwt");
     let userName = document.getElementById("username").textContent;

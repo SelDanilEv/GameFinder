@@ -20,9 +20,9 @@ public class PlayerDto {
     }
 
     public static PlayerDto fromUser(User user) {
-        PlayerDto studentDto = new PlayerDto();
-        studentDto.setUsername(user.getUsername());
-        studentDto.setEmail(user.getEmail());
-        return studentDto;
+        PlayerDto playerDto = new PlayerDto();
+        playerDto.setUsername(user.getUsername());
+        playerDto.setEmail(user.getEmail());
+        return playerDto;
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/v1/students/")
+@RequestMapping(value = "/api/v1/players/")
 public class PlayerRestControllerV1 {
     private final UserService userService;
     private final IChampionshipRepository iChampionshipRepository;
