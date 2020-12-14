@@ -26,7 +26,7 @@ load = async () => {
 
         ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.email + "</li>";
         let ulk2 = document.getElementById("buttt");
-        ulk2.innerHTML += "<button type=\"button\" id=\"but\" class=\"btn btn-secondary btn-lg btn-block\" onclick='onStudentPage()' style=\"margin-left: 35px; margin-bottom: 20px; height: 50px; width:280px\"></button>";
+        ulk2.innerHTML += "<button type=\"button\" id=\"but\" class=\"btn btn-secondary btn-lg btn-block\" onclick='onPlayerPage()' style=\"margin-left: 35px; margin-bottom: 20px; height: 50px; width:280px\"></button>";
         document.getElementById("but").innerHTML = "view ratings";
     }else
     {
@@ -43,7 +43,7 @@ onAdminPage = () => {
     document.location.href = "/register";
 }
 
-onStudentPage = () => {
+onPlayerPage = () => {
     document.location.href = "/student";
 }
 

@@ -2,10 +2,10 @@ package com.defender.test.rest;
 
 import com.defender.test.dto.AdminUserDto;
 import com.defender.test.model.Faculty;
-import com.defender.test.model.Subject;
+import com.defender.test.model.Championship;
 import com.defender.test.model.User;
 import com.defender.test.services.FacultyService;
-import com.defender.test.services.SubjectService;
+import com.defender.test.services.ChampionshipService;
 import com.defender.test.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +22,11 @@ import java.util.Objects;
 public class AdminRestControllerV1 {
 
     private final UserService userService;
-    private final SubjectService subjectService;
+    private final ChampionshipService subjectService;
     private final FacultyService facultyService;
 
     @Autowired
-    public AdminRestControllerV1(UserService userService, SubjectService subjectService, FacultyService facultyService) {
+    public AdminRestControllerV1(UserService userService, ChampionshipService subjectService, FacultyService facultyService) {
         this.userService = userService;
         this.subjectService = subjectService;
         this.facultyService = facultyService;
@@ -57,10 +57,10 @@ public class AdminRestControllerV1 {
 //    }
 
     @PostMapping("addSubject")
-    public ResponseEntity addSubject(RequestEntity<Subject> subject) {
-        subjectService.addSubject(Objects.requireNonNull(subject.getBody()).getSubject());
+    public ResponseEntity addSubject(RequestEntity<Championship> subject) {
+        subjectService.addChampionship(Objects.requireNonNull(subject.getBody()).getName());
         log.info("Get request : /api/v1/admin/addSubject");
-        return new ResponseEntity<>(Objects.requireNonNull(subject.getBody()).getSubject(), HttpStatus.CREATED);
+        return new ResponseEntity<>(Objects.requireNonNull(subject.getBody()).getName(), HttpStatus.CREATED);
     }
 
     @PostMapping("addFaculty")
@@ -71,9 +71,9 @@ public class AdminRestControllerV1 {
     }
 
     @PutMapping("deActivateSubject")
-    public ResponseEntity deActivateSubject(RequestEntity<Subject> subject) {
-        subjectService.deleteSubjectByName(Objects.requireNonNull(subject.getBody()).getSubject());
+    public ResponseEntity deActivateSubject(RequestEntity<Championship> subject) {
+        subjectService.deleteChampionshipByName(Objects.requireNonNull(subject.getBody()).getName());
         log.info("Get request : /api/v1/admin/deActivateSubject");
-        return new ResponseEntity<>(Objects.requireNonNull(subject.getBody()).getSubject(), HttpStatus.CREATED);
+        return new ResponseEntity<>(Objects.requireNonNull(subject.getBody()).getName(), HttpStatus.CREATED);
     }
 }

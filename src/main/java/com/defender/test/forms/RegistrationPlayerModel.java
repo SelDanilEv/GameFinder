@@ -1,6 +1,5 @@
 package com.defender.test.forms;
 
-import com.defender.test.model.Faculty;
 import com.defender.test.model.User;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Email;
@@ -8,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Getter
-public class RegistrationStudentModel {
+public class RegistrationPlayerModel {
 
     @NotBlank(message = "Username cannot be empty")
     @Length(min = 8, max = 40, message = "Username length must be between 8 and 40 characters")

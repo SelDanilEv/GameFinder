@@ -1,11 +1,11 @@
 package com.defender.test.rest;
 
-import com.defender.test.Validator.StudentValidator;
+import com.defender.test.Validator.PlayerValidator;
 import com.defender.test.dto.AuthenticationRequestDto;
 import com.defender.test.model.*;
 import com.defender.test.security.jwt.JwtTokenProvider;
 import com.defender.test.services.FacultyService;
-import com.defender.test.services.SubjectService;
+import com.defender.test.services.ChampionshipService;
 import com.defender.test.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,11 +36,11 @@ public class AuthenticationRestControllerV1 {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
     private final FacultyService facultyService;
-    private final SubjectService subjectService;
-    private final StudentValidator studentValidator;
+    private final ChampionshipService subjectService;
+    private final PlayerValidator studentValidator;
 
     @Autowired
-    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, SubjectService subjectService, StudentValidator studentValidator) {
+    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, ChampionshipService subjectService, PlayerValidator studentValidator) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
@@ -103,7 +101,7 @@ public class AuthenticationRestControllerV1 {
     }
 
     @GetMapping(value = {"/subjects"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Subject>> subjectList() {
+    public ResponseEntity<List<Championship>> subjectList() {
         return new ResponseEntity<>(subjectService.findAll()
                                                     .stream()
                                                     .filter(i -> i.getStatus() != Status.DELETED)

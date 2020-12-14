@@ -28,7 +28,7 @@ async function Register()
         document.getElementById("smsubmitPassword").innerHTML = "Passwords are not the same";
         return
     }
-    let response = await fetch("/api/v1/auth/registerStudent",
+    let response = await fetch("/api/v1/auth/registerPlayer",
     {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
@@ -257,7 +257,7 @@ function changeOnTeacherForm(){
     document.getElementById("teacher-div").style.display = "block";
 }
 
-function changeOnStudentForm(){
+function changeOnPlayerForm(){
     document.getElementById("student-div").style.display = "block";
     document.getElementById("teacher-div").style.display = "none";
 }

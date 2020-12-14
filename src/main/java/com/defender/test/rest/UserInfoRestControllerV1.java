@@ -1,8 +1,8 @@
 package com.defender.test.rest;
 
-import com.defender.test.Validator.StudentValidator;
+import com.defender.test.Validator.PlayerValidator;
 import com.defender.test.dto.AdminUserDto;
-import com.defender.test.dto.StudentDto;
+import com.defender.test.dto.PlayerDto;
 import com.defender.test.model.Role;
 import com.defender.test.model.User;
 import com.defender.test.security.jwt.JwtTokenProvider;
@@ -30,10 +30,10 @@ public class UserInfoRestControllerV1 {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
     private final FacultyService facultyService;
-    private final StudentValidator studentValidator;
+    private final PlayerValidator studentValidator;
 
     @Autowired
-    public UserInfoRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, StudentValidator studentValidator) {
+    public UserInfoRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, PlayerValidator studentValidator) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
@@ -48,7 +48,7 @@ public class UserInfoRestControllerV1 {
         User user = userService.findByUsername(username);
         Role role = user.getRoles().get(0);
         if(role.getName().equals("ROLE_PLAYER")) {
-            StudentDto studentDto = StudentDto.fromUser(user);
+            PlayerDto studentDto = PlayerDto.fromUser(user);
             log.info("Get request : /api/v1/userinfo/ -- ROLE_PLAYER");
             return new ResponseEntity<>(studentDto, HttpStatus.OK);
         }else{

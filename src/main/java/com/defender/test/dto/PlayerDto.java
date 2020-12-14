@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class StudentDto {
+public class PlayerDto {
     private String username;
     private String email;
     private boolean nothing;
@@ -19,8 +19,8 @@ public class StudentDto {
         return user;
     }
 
-    public static StudentDto fromUser(User user) {
-        StudentDto studentDto = new StudentDto();
+    public static PlayerDto fromUser(User user) {
+        PlayerDto studentDto = new PlayerDto();
         studentDto.setUsername(user.getUsername());
         studentDto.setEmail(user.getEmail());
         return studentDto;
