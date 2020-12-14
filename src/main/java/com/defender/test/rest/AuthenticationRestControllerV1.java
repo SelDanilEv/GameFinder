@@ -4,7 +4,7 @@ import com.defender.test.Validator.PlayerValidator;
 import com.defender.test.dto.AuthenticationRequestDto;
 import com.defender.test.model.*;
 import com.defender.test.security.jwt.JwtTokenProvider;
-import com.defender.test.services.FacultyService;
+import com.defender.test.services.RequestService;
 import com.defender.test.services.ChampionshipService;
 import com.defender.test.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,12 +35,12 @@ public class AuthenticationRestControllerV1 {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
-    private final FacultyService facultyService;
+    private final RequestService facultyService;
     private final ChampionshipService subjectService;
     private final PlayerValidator playerValidator;
 
     @Autowired
-    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, ChampionshipService subjectService, PlayerValidator playerValidator) {
+    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, RequestService facultyService, ChampionshipService subjectService, PlayerValidator playerValidator) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
@@ -92,20 +92,6 @@ public class AuthenticationRestControllerV1 {
             log.info("Get request : /api/v1/auth/login ---- Invalid username or password");
             throw new BadCredentialsException("Invalid username or password");
         }
-    }
-
-    @GetMapping(value = {"/faculties"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Faculty>> facultyList() {
-        log.info("Get request : /api/v1/auth/faculties");
-        return new ResponseEntity<>(facultyService.findAll(), HttpStatus.OK);
-    }
-
-    @GetMapping(value = {"/subjects"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Championship>> subjectList() {
-        return new ResponseEntity<>(subjectService.findAll()
-                                                    .stream()
-                                                    .filter(i -> i.getStatus() != Status.DELETED)
-                                                    .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping(value = {"/userinfo"}, produces = MediaType.APPLICATION_JSON_VALUE)

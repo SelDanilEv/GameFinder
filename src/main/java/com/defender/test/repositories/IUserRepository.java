@@ -1,6 +1,6 @@
 package com.defender.test.repositories;
 
-import com.defender.test.model.Faculty;
+import com.defender.test.model.Request;
 import com.defender.test.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

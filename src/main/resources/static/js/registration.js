@@ -76,13 +76,13 @@ async function addSubject(){
     setSubjects();
 }
 
-async function addFaculty(){
+async function addRequest(){
     let jwt = localStorage.getItem("jwt");
     if(jwt== null){
         document.location.href = "/login";
     }
-    let facultyName = document.getElementById("addFacultyName").value;
-    await fetch("/api/v1/admin/addFaculty",
+    let facultyName = document.getElementById("addRequestName").value;
+    await fetch("/api/v1/admin/addRequest",
         {
             method: 'POST',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer_' + jwt},
@@ -90,7 +90,7 @@ async function addFaculty(){
                 faculty: facultyName
             })
         });
-    document.getElementById("addFacultyName").value= "";
+    document.getElementById("addRequestName").value= "";
     setFaculties();
 }
 

@@ -1,10 +1,10 @@
 package com.defender.test.rest;
 
 import com.defender.test.dto.AdminUserDto;
-import com.defender.test.model.Faculty;
+import com.defender.test.model.Request;
 import com.defender.test.model.Championship;
 import com.defender.test.model.User;
-import com.defender.test.services.FacultyService;
+import com.defender.test.services.RequestService;
 import com.defender.test.services.ChampionshipService;
 import com.defender.test.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +23,10 @@ public class AdminRestControllerV1 {
 
     private final UserService userService;
     private final ChampionshipService subjectService;
-    private final FacultyService facultyService;
+    private final RequestService facultyService;
 
     @Autowired
-    public AdminRestControllerV1(UserService userService, ChampionshipService subjectService, FacultyService facultyService) {
+    public AdminRestControllerV1(UserService userService, ChampionshipService subjectService, RequestService facultyService) {
         this.userService = userService;
         this.subjectService = subjectService;
         this.facultyService = facultyService;
@@ -53,12 +53,12 @@ public class AdminRestControllerV1 {
         return new ResponseEntity<>(Objects.requireNonNull(subject.getBody()).getName(), HttpStatus.CREATED);
     }
 
-    @PostMapping("addFaculty")
-    public ResponseEntity addFaculty(RequestEntity<Faculty> faculty) {
-        facultyService.addFaculty(Objects.requireNonNull(faculty.getBody()).getFaculty());
-        log.info("Get request : /api/v1/admin/addFaculty");
-        return new ResponseEntity<>(Objects.requireNonNull(faculty.getBody()).getFaculty(), HttpStatus.CREATED);
-    }
+//    @PostMapping("addRequest")
+//    public ResponseEntity addRequest(RequestEntity<Request> faculty) {
+//        facultyService.addRequest(Objects.requireNonNull(faculty.getBody()).());
+//        log.info("Get request : /api/v1/admin/addRequest");
+//        return new ResponseEntity<>(Objects.requireNonNull(faculty.getBody()).getRequest(), HttpStatus.CREATED);
+//    }
 
     @PutMapping("deActivateSubject")
     public ResponseEntity deActivateSubject(RequestEntity<Championship> subject) {

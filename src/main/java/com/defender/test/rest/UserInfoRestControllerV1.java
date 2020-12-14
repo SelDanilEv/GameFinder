@@ -6,7 +6,7 @@ import com.defender.test.dto.PlayerDto;
 import com.defender.test.model.Role;
 import com.defender.test.model.User;
 import com.defender.test.security.jwt.JwtTokenProvider;
-import com.defender.test.services.FacultyService;
+import com.defender.test.services.RequestService;
 import com.defender.test.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +29,11 @@ public class UserInfoRestControllerV1 {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
-    private final FacultyService facultyService;
+    private final RequestService facultyService;
     private final PlayerValidator playerValidator;
 
     @Autowired
-    public UserInfoRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, PlayerValidator playerValidator) {
+    public UserInfoRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, RequestService facultyService, PlayerValidator playerValidator) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;

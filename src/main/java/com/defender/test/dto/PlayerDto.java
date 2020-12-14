@@ -1,6 +1,6 @@
 package com.defender.test.dto;
 
-import com.defender.test.model.Faculty;
+import com.defender.test.model.Request;
 import com.defender.test.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

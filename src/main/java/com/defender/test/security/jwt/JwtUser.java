@@ -1,6 +1,6 @@
 package com.defender.test.security.jwt;
 
-import com.defender.test.model.Faculty;
+import com.defender.test.model.Request;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
