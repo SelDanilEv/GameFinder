@@ -1,4 +1,4 @@
-package com.defender.test.exceptions;
+package com.defender.test.Exceptions;
 
 public class StudentNotFoundException extends RuntimeException {
     public StudentNotFoundException(int id) {

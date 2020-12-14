@@ -1,25 +1,19 @@
 package com.defender.test.rest;
 
 import com.defender.test.dto.AdminUserDto;
-import com.defender.test.dto.TeacherDto;
-import com.defender.test.dto.TeacherToGroupDto;
 import com.defender.test.model.Faculty;
 import com.defender.test.model.Subject;
 import com.defender.test.model.User;
 import com.defender.test.services.FacultyService;
 import com.defender.test.services.SubjectService;
-import com.defender.test.services.TeacherToGroupService;
 import com.defender.test.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Slf4j
@@ -30,14 +24,12 @@ public class AdminRestControllerV1 {
     private final UserService userService;
     private final SubjectService subjectService;
     private final FacultyService facultyService;
-    private final TeacherToGroupService teacherToGroupService;
 
     @Autowired
-    public AdminRestControllerV1(UserService userService, SubjectService subjectService, FacultyService facultyService, TeacherToGroupService teacherToGroupService) {
+    public AdminRestControllerV1(UserService userService, SubjectService subjectService, FacultyService facultyService) {
         this.userService = userService;
         this.subjectService = subjectService;
         this.facultyService = facultyService;
-        this.teacherToGroupService = teacherToGroupService;
     }
 
     @GetMapping(value = "users/{username}")
@@ -83,12 +75,5 @@ public class AdminRestControllerV1 {
         subjectService.deleteSubjectByName(Objects.requireNonNull(subject.getBody()).getSubject());
         log.info("Get request : /api/v1/admin/deActivateSubject");
         return new ResponseEntity<>(Objects.requireNonNull(subject.getBody()).getSubject(), HttpStatus.CREATED);
-    }
-
-    @PostMapping("addTeacherToGroupRecord")
-    public ResponseEntity addTeacherToGroupRecord(RequestEntity<TeacherToGroupDto> teacherDtoRequestEntity) {
-        teacherToGroupService.addRecord(Objects.requireNonNull(teacherDtoRequestEntity.getBody()));
-        log.info("Get request : /api/v1/admin/addTeacherToGroupRecord");
-        return new ResponseEntity<>(Objects.requireNonNull(teacherDtoRequestEntity.getBody()).getSubject(), HttpStatus.CREATED);
     }
 }

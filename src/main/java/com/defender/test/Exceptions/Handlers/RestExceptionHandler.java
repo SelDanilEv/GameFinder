@@ -1,6 +1,6 @@
-package com.defender.test.exceptions.Handlers;
+package com.defender.test.Exceptions.Handlers;
 
-import com.defender.test.exceptions.UserValidationException;
+import com.defender.test.Exceptions.UserValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

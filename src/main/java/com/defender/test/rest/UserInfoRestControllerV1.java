@@ -1,10 +1,8 @@
 package com.defender.test.rest;
 
 import com.defender.test.Validator.StudentValidator;
-import com.defender.test.Validator.TeacherValidator;
 import com.defender.test.dto.AdminUserDto;
 import com.defender.test.dto.StudentDto;
-import com.defender.test.dto.TeacherDto;
 import com.defender.test.model.Role;
 import com.defender.test.model.User;
 import com.defender.test.security.jwt.JwtTokenProvider;
@@ -33,16 +31,14 @@ public class UserInfoRestControllerV1 {
     private final UserService userService;
     private final FacultyService facultyService;
     private final StudentValidator studentValidator;
-    private final TeacherValidator teacherValidator;
 
     @Autowired
-    public UserInfoRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, StudentValidator studentValidator, TeacherValidator teacherValidator) {
+    public UserInfoRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, StudentValidator studentValidator) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
         this.facultyService = facultyService;
         this.studentValidator = studentValidator;
-        this.teacherValidator = teacherValidator;
     }
 
     @GetMapping(value = {"/"}, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,10 +51,6 @@ public class UserInfoRestControllerV1 {
             StudentDto studentDto = StudentDto.fromUser(user);
             log.info("Get request : /api/v1/userinfo/ -- ROLE_PLAYER");
             return new ResponseEntity<>(studentDto, HttpStatus.OK);
-        }else if(role.getName().equals("ROLE_TEACHER")){
-            TeacherDto teacherDto = TeacherDto.fromUser(user);
-            log.info("Get request : /api/v1/userinfo/ -- ROLE_TEACHER");
-            return new ResponseEntity<>(teacherDto, HttpStatus.OK);
         }else{
             AdminUserDto adminUserDto = AdminUserDto.fromUser(user);
             log.info("Get request : /api/v1/userinfo/ -- ADMIN");

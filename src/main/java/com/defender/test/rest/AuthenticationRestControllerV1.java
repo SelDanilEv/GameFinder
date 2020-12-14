@@ -1,11 +1,7 @@
 package com.defender.test.rest;
 
 import com.defender.test.Validator.StudentValidator;
-import com.defender.test.Validator.TeacherValidator;
 import com.defender.test.dto.AuthenticationRequestDto;
-import com.defender.test.exceptions.UserValidationException;
-import com.defender.test.forms.RegistrationStudentModel;
-import com.defender.test.forms.RegistrationTeacherModel;
 import com.defender.test.model.*;
 import com.defender.test.security.jwt.JwtTokenProvider;
 import com.defender.test.services.FacultyService;
@@ -44,17 +40,15 @@ public class AuthenticationRestControllerV1 {
     private final FacultyService facultyService;
     private final SubjectService subjectService;
     private final StudentValidator studentValidator;
-    private final TeacherValidator teacherValidator;
 
     @Autowired
-    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, SubjectService subjectService, StudentValidator studentValidator, TeacherValidator teacherValidator) {
+    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, FacultyService facultyService, SubjectService subjectService, StudentValidator studentValidator) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
         this.facultyService = facultyService;
         this.subjectService = subjectService;
         this.studentValidator = studentValidator;
-        this.teacherValidator = teacherValidator;
     }
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ResponseEntity<User> Register(@RequestBody AuthenticationRequestDto requestDto) throws MethodArgumentNotValidException {
@@ -78,21 +72,6 @@ public class AuthenticationRestControllerV1 {
             log.info("Get request : /api/v1/auth/registration ---- Invalid username");
             throw new BadCredentialsException("Invalid username or password");
         }
-    }
-
-    @RequestMapping(value = "/registerTeacher", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> RegisterTeacher(@Valid @RequestBody RegistrationTeacherModel teacherDetails, BindingResult errors) throws MethodArgumentNotValidException {
-
-        teacherValidator.validate(teacherDetails, errors);
-
-        if(errors.hasErrors()){
-            throw new UserValidationException(errors);
-        }
-
-        User user = teacherDetails.ToUser();
-        userService.register(user);
-        log.info("Get request : /api/v1/auth/registerTeacher");
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")

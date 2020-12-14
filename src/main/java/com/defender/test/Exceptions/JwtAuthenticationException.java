@@ -1,4 +1,4 @@
-package com.defender.test.exceptions;
+package com.defender.test.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;

@@ -28,19 +28,6 @@ load = async () => {
         let ulk2 = document.getElementById("buttt");
         ulk2.innerHTML += "<button type=\"button\" id=\"but\" class=\"btn btn-secondary btn-lg btn-block\" onclick='onStudentPage()' style=\"margin-left: 35px; margin-bottom: 20px; height: 50px; width:280px\"></button>";
         document.getElementById("but").innerHTML = "view ratings";
-    }else if(length == 4){
-        ulk.innerHTML += "<li>First Name</li>"
-        ulk.innerHTML += "<li>Surname</li>"
-        ulk.innerHTML += "<li>Middle Name</li>"
-
-
-        ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.firstName + "</li>";
-        ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.lastName + "</li>";
-        ulv.innerHTML += "<li class=\"inf_li\">" + user_info_json.middleName + "</li>";
-        let ulk2 = document.getElementById("buttt");
-        ulk2.innerHTML += "<button type=\"button\" id=\"but\" class=\"btn btn-secondary btn-lg btn-block\" onclick='onTeacherPage()' style=\"margin-left: 35px; margin-bottom: 20px; height: 50px; width:280px\"></button>";
-        document.getElementById("but").innerHTML = "rate students";
-        document.getElementById("spisok").style.marginTop = "30px";
     }else
     {
         let ulk2 = document.getElementById("buttt");

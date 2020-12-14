@@ -3710,3 +3710,59 @@ Caused by: java.lang.IllegalArgumentException: role should not start with 'ROLE_
 14.12.2020 04:05:38.360 [SpringContextShutdownHook] INFO - Shutting down ExecutorService 'applicationTaskExecutor'
 14.12.2020 04:05:38.363 [SpringContextShutdownHook] INFO - HikariPool-1 - Shutdown initiated...
 14.12.2020 04:05:38.382 [SpringContextShutdownHook] INFO - HikariPool-1 - Shutdown completed.
+14.12.2020 04:15:12.198 [restartedMain] INFO - Starting TestApplication on Defender-SD with PID 21372 (D:\Danil\university\MPTinI\3k1s\Labs\test\target\classes started by Defender in D:\Danil\university\MPTinI\3k1s\Labs\test)
+14.12.2020 04:15:12.210 [restartedMain] INFO - No active profile set, falling back to default profiles: default
+14.12.2020 04:15:12.234 [background-preinit] INFO - HV000001: Hibernate Validator 5.4.1.Final
+14.12.2020 04:15:12.302 [restartedMain] INFO - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+14.12.2020 04:15:12.303 [restartedMain] INFO - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+14.12.2020 04:15:13.321 [restartedMain] INFO - Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+14.12.2020 04:15:13.426 [restartedMain] INFO - Finished Spring Data repository scanning in 97ms. Found 4 JPA repository interfaces.
+14.12.2020 04:15:14.066 [restartedMain] INFO - Tomcat initialized with port(s): 8080 (http)
+14.12.2020 04:15:14.075 [restartedMain] INFO - Initializing ProtocolHandler ["http-nio-8080"]
+14.12.2020 04:15:14.076 [restartedMain] INFO - Starting service [Tomcat]
+14.12.2020 04:15:14.076 [restartedMain] INFO - Starting Servlet engine: [Apache Tomcat/9.0.38]
+14.12.2020 04:15:14.165 [restartedMain] INFO - Initializing Spring embedded WebApplicationContext
+14.12.2020 04:15:14.166 [restartedMain] INFO - Root WebApplicationContext: initialization completed in 1863 ms
+14.12.2020 04:15:14.213 [restartedMain] INFO - HikariPool-1 - Starting...
+14.12.2020 04:15:14.566 [restartedMain] INFO - HikariPool-1 - Start completed.
+14.12.2020 04:15:14.572 [restartedMain] INFO - H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/gamefinder?useUnicode=true&serverTimezone=UTC'
+14.12.2020 04:15:14.703 [restartedMain] INFO - Initializing ExecutorService 'applicationTaskExecutor'
+14.12.2020 04:15:14.779 [task-1] INFO - HHH000204: Processing PersistenceUnitInfo [name: default]
+14.12.2020 04:15:14.851 [task-1] INFO - HHH000412: Hibernate ORM core version 5.4.21.Final
+14.12.2020 04:15:15.008 [task-1] INFO - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+14.12.2020 04:15:15.008 [restartedMain] WARN - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+14.12.2020 04:15:15.069 [restartedMain] WARN - [THYMELEAF][restartedMain] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+14.12.2020 04:15:15.130 [task-1] INFO - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+14.12.2020 04:15:15.312 [restartedMain] INFO - Adding welcome page template: index
+14.12.2020 04:15:16.279 [restartedMain] INFO - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@f99c824, org.springframework.security.web.context.SecurityContextPersistenceFilter@3b726776, org.springframework.security.web.header.HeaderWriterFilter@70339c5e, org.springframework.security.web.authentication.logout.LogoutFilter@78103f4f, com.defender.test.security.jwt.JwtTokenFilter@1b2960af, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@105e02f8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2e28a651, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@62f81907, org.springframework.security.web.session.SessionManagementFilter@11fb1638, org.springframework.security.web.access.ExceptionTranslationFilter@792c825a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@712d8293]
+14.12.2020 04:15:16.329 [task-1] INFO - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+14.12.2020 04:15:16.338 [task-1] INFO - Initialized JPA EntityManagerFactory for persistence unit 'default'
+14.12.2020 04:15:16.346 [restartedMain] INFO - LiveReload server is running on port 35729
+14.12.2020 04:15:16.369 [restartedMain] INFO - Starting ProtocolHandler ["http-nio-8080"]
+14.12.2020 04:15:16.394 [restartedMain] INFO - Tomcat started on port(s): 8080 (http) with context path ''
+14.12.2020 04:15:16.396 [restartedMain] INFO - Triggering deferred initialization of Spring Data repositories…
+14.12.2020 04:15:16.725 [restartedMain] INFO - Spring Data repositories initialized!
+14.12.2020 04:15:16.736 [restartedMain] INFO - Started TestApplication in 5.401 seconds (JVM running for 7.516)
+14.12.2020 04:15:36.478 [http-nio-8080-exec-1] INFO - Initializing Spring DispatcherServlet 'dispatcherServlet'
+14.12.2020 04:15:40.987 [http-nio-8080-exec-4] INFO - IN loadUserByUsername - user with username: Danil successfully loaded
+14.12.2020 04:15:41.102 [http-nio-8080-exec-4] INFO - UserService : findByUsername
+14.12.2020 04:15:41.146 [http-nio-8080-exec-4] INFO - Get request : /api/v1/auth/login
+14.12.2020 04:15:41.360 [http-nio-8080-exec-9] INFO - IN loadUserByUsername - user with username: Danil successfully loaded
+14.12.2020 04:15:41.366 [http-nio-8080-exec-9] INFO - UserService : findByUsername
+14.12.2020 04:15:41.373 [http-nio-8080-exec-9] INFO - Get request : /api/v1/userinfo/ -- ROLE_PLAYER
+14.12.2020 04:15:46.570 [http-nio-8080-exec-4] INFO - IN loadUserByUsername - user with username: Danil successfully loaded
+14.12.2020 04:15:46.572 [http-nio-8080-exec-4] INFO - UserService : findByUsername
+14.12.2020 04:15:46.579 [http-nio-8080-exec-4] INFO - Get request : /api/v1/userinfo/ -- ROLE_PLAYER
+14.12.2020 04:15:46.631 [http-nio-8080-exec-5] INFO - IN loadUserByUsername - user with username: Danil successfully loaded
+14.12.2020 04:15:46.642 [http-nio-8080-exec-5] INFO - UserService : findByUsername
+14.12.2020 04:16:23.037 [http-nio-8080-exec-9] INFO - IN loadUserByUsername - user with username: Admin successfully loaded
+14.12.2020 04:16:23.476 [http-nio-8080-exec-9] INFO - UserService : findByUsername
+14.12.2020 04:16:23.479 [http-nio-8080-exec-9] INFO - Get request : /api/v1/auth/login
+14.12.2020 04:16:23.670 [http-nio-8080-exec-4] INFO - IN loadUserByUsername - user with username: Admin successfully loaded
+14.12.2020 04:16:23.672 [http-nio-8080-exec-4] INFO - UserService : findByUsername
+14.12.2020 04:16:23.678 [http-nio-8080-exec-4] INFO - Get request : /api/v1/userinfo/ -- ADMIN
+14.12.2020 04:16:26.135 [http-nio-8080-exec-9] INFO - SubjectService : findAll
+14.12.2020 04:16:26.138 [http-nio-8080-exec-10] INFO - Get request : /api/v1/auth/faculties
+14.12.2020 04:16:26.138 [http-nio-8080-exec-10] INFO - FacultyService : find All Faculty
+14.12.2020 04:16:26.142 [http-nio-8080-exec-8] INFO - IN loadUserByUsername - user with username: Admin successfully loaded
+14.12.2020 04:16:26.154 [http-nio-8080-exec-8] INFO - IN loadUserByUsername - user with username: Admin successfully loaded
