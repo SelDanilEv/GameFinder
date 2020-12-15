@@ -123,7 +123,7 @@ public class AuthenticationRestControllerV1 {
                 .filter(i -> i.getStatus().equals("Pending"))
                 .collect(Collectors.toList());
         List<RequestDto> ret_list = new ArrayList<>();
-        for(int i = 0; i < 10 && i<list.size(); i++) {
+        for (int i = 0; i < 10 && i < list.size(); i++) {
             ret_list.add(RequestDto.FromRequest(list.get(i)));
         }
         return new ResponseEntity<>(ret_list, HttpStatus.OK);
@@ -144,17 +144,4 @@ public class AuthenticationRestControllerV1 {
         return new ResponseEntity<RequestDto>(ret, HttpStatus.OK);
     }
 
-    @PostMapping(value = "{makeRequest}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity makeRequests(@RequestBody String string) {
-        string = string.substring(1, string.length() - 1);
-        String[] list = string.split("]");
-        User user = userService.findByUsername(list[1]);
-        Championship championship = championshipService.findByName(list[0]);
-        requestService.addRequest(
-                "Pending",
-                list[2],
-                user,
-                championship
-        );
-        return new ResponseEntity(HttpStatus.OK);
-    }}
+}

@@ -1,12 +1,18 @@
 package com.defender.test.services;
 
+import com.defender.test.dto.RequestDto;
 import com.defender.test.model.Championship;
 import com.defender.test.model.Request;
 import com.defender.test.model.User;
+import com.defender.test.repositories.IChampionshipRepository;
 import com.defender.test.repositories.IRequestRepository;
+import com.defender.test.services.serviceInterfaces.IChampionshipService;
 import com.defender.test.services.serviceInterfaces.IMyRequestService;
+import com.defender.test.services.serviceInterfaces.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,10 +23,16 @@ import java.util.stream.Collectors;
 @Service
 public class RequestService implements IMyRequestService {
     private final IRequestRepository requestRepository;
+    private final IUserService userService;
+    private final IChampionshipRepository championshipService;
 
     @Autowired
-    public RequestService(IRequestRepository requestRepository) {
+    public JavaMailSender emailSender;
+
+    public RequestService(IRequestRepository requestRepository, IUserService userService, IChampionshipRepository championshipService) {
         this.requestRepository = requestRepository;
+        this.userService = userService;
+        this.championshipService = championshipService;
     }
 
     public List<Request> findAll() {
@@ -40,8 +52,35 @@ public class RequestService implements IMyRequestService {
     }
 
     public Request findByUandC(User user, Championship championship) {
-        return requestRepository.findByUserAndAndChampionship(user, championship);
+        return requestRepository.findAllByUserAndAndChampionship(user, championship).get(0);
     }
 
+    public boolean isExist(User user, Championship championship) {
+        return requestRepository.findAllByUserAndAndChampionship(user, championship).size() > 0;
+    }
 
+    public void setRequestStatus(String strToParse, boolean isAccept) {
+        strToParse = strToParse.substring(1, strToParse.length() - 1);
+        String[] list = strToParse.split(" => ");
+        User user = userService.findByUsername(list[0]);
+        Championship championship = championshipService.findByName(list[1]);
+        Request request = findByUandC(user, championship);
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setSubject("Overworld Cup");
+
+        if (isAccept) {
+            request.setStatus("Accepted");
+            message.setText(strToParse + "was accepted by admin");
+        } else {
+            request.setStatus("Refused");
+            message.setText("[ " + strToParse + " ]  " + "was refused by admin");
+        }
+        if (user.getEmail() != null) {
+            message.setTo(user.getEmail());
+            this.emailSender.send(message);
+        }
+
+        requestRepository.save(request);
+    }
 }
