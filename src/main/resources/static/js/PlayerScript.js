@@ -1,7 +1,3 @@
-
-
-
-
 async function MakeReqest() {
     let jwt = localStorage.getItem("jwt");
     if (jwt == null) {
@@ -17,16 +13,54 @@ async function MakeReqest() {
             headers: {'Authorization': 'Bearer_' + jwt, 'Accept': 'application/json'}
         });
     let user_info_json = await user_info.json();
-    let response = await fetch("api/v1/auth/makeRequest",
+    jwt = localStorage.getItem("jwt");
+    console.log(jwt);
+    let response = await fetch("api/v1/players/makeRequest",
         {
-            method: 'POST', mode: 'no-cors',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json',
-                'Authorization': 'Bearer_' + jwt},
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer_' + jwt,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
             body: JSON.stringify(
-                str+']'+await user_info_json.username+']'+mess
+                str + ']' + await user_info_json.username + ']' + mess
             )
         });
-    alert("Request sended to admin");
+    let isS = await response;
+    if (isS.status === 200)
+        alert("Request sended to admin");
+    else
+        alert("Same request already exist");
+}
+
+async function ChangeEmail() {
+    let jwt = localStorage.getItem("jwt");
+    if (jwt == null) {
+        document.location.href = "/login";
+    }
+    let email = document.getElementById("email").value;
+    let user_info = await fetch('api/v1/userinfo/',
+        {
+            method: 'GET',
+            headers: {'Authorization': 'Bearer_' + jwt, 'Accept': 'application/json'}
+        });
+    let user_info_json = await user_info.json();
+    jwt = localStorage.getItem("jwt");
+    console.log(jwt);
+    let response = await fetch("api/v1/players/changeEmail",
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer_' + jwt,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(
+                await user_info_json.username + ']' + email
+            )
+        });
+    alert("Email changed on "+email);
 }
 
 async function setChampionship() {

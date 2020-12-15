@@ -64,26 +64,52 @@ async function setChampionship() {
     });
 }
 
-async function addRequest() {
+async function acceptRequest() {
     let jwt = localStorage.getItem("jwt");
     if (jwt == null) {
         document.location.href = "/login";
     }
-    let facultyName = document.getElementById("addRequestName").value;
-    await fetch("/api/v1/admin/addRequest",
+    let req = document.getElementById("Request-select");
+    let str = req.options[req.selectedIndex].text;
+    if (!str) return;
+    let response = await fetch("api/v1/admin/acceptRequest",
         {
             method: 'POST',
             headers: {
+                'Authorization': 'Bearer_' + jwt,
                 'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer_' + jwt
+                'Accept': 'application/json'
             },
-            body: JSON.stringify({
-                faculty: facultyName
-            })
+            body: JSON.stringify(
+                str
+            )
         });
-    document.getElementById("addRequestName").value = "";
-    setFaculties();
+    let isS = await response;
+    await setRequests();
+}
+
+async function refuseRequest() {
+    let jwt = localStorage.getItem("jwt");
+    if (jwt == null) {
+        document.location.href = "/login";
+    }
+    let req = document.getElementById("Request-select");
+    let str = req.options[req.selectedIndex].text;
+    if (!str) return;
+    let response = await fetch("api/v1/admin/refuseRequest",
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer_' + jwt,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(
+                str
+            )
+        });
+    let isS = await response;
+    await setRequests();
 }
 
 async function chooseRequest() {
@@ -130,3 +156,7 @@ function init() {
     }, 100);
 }
 
+logout = () => {
+    localStorage.clear();
+    document.location.href = "/login";
+}

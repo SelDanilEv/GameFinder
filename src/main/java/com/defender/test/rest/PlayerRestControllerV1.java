@@ -43,4 +43,38 @@ public class PlayerRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PostMapping(value = "makeRequest", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity makeRequests(@RequestBody String string) {
+        log.info("Player make request");
+        string = string.substring(1, string.length() - 1);
+        String[] list = string.split("]");
+        User user = userService.findByUsername(list[1]);
+        Championship championship = championshipService.findByName(list[0]);
+        if (!requestService.isExist(user, championship)) {
+            requestService.addRequest(
+                    "Pending",
+                    list[2],
+                    user,
+                    championship
+            );
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity(HttpStatus.CONFLICT);
+        }
+    }
+
+    @PostMapping(value = "changeEmail", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity changeEmail(@RequestBody String string) {
+        log.info("Player change email");
+        string = string.substring(1, string.length() - 1);
+        String[] list = string.split("]");
+        User user = userService.findByUsername(list[0]);
+
+        user.setEmail(list[1]);
+
+        userService.save(user);
+
+        return new ResponseEntity(HttpStatus.CONFLICT);
+    }
 }

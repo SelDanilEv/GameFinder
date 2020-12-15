@@ -19,10 +19,11 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class    UserService implements IUserService {
+public class UserService implements IUserService {
     private IUserRepository userRepository;
     private IRoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     public UserService(IUserRepository userRepository, IRoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -30,7 +31,7 @@ public class    UserService implements IUserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User findByUserName(String name){
+    public User findByUserName(String name) {
         return userRepository.findByUsername(name);
     }
 
@@ -46,7 +47,7 @@ public class    UserService implements IUserService {
         user.setStatus(Status.ACTIVE);
         user.setCreated(new Date());
         user.setUpdated(new Date());
-        log.info("{} registered" , user);
+        log.info("{} registered", user);
         return userRepository.save(user);
     }
 
@@ -78,5 +79,9 @@ public class    UserService implements IUserService {
     public void delete(Long id) {
         log.info("UserService : delete");
         userRepository.deleteById(id);
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
     }
 }

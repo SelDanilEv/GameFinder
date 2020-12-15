@@ -9,6 +9,7 @@ import com.defender.test.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,12 +53,17 @@ public class AdminRestControllerV1 {
         return new ResponseEntity<>(Objects.requireNonNull(championship.getBody()).getName(), HttpStatus.CREATED);
     }
 
-//    @PostMapping("addRequest")
-//    public ResponseEntity addRequest(RequestEntity<Request> faculty) {
-//        facultyService.addRequest(Objects.requireNonNull(faculty.getBody()).());
-//        log.info("Get request : /api/v1/admin/addRequest");
-//        return new ResponseEntity<>(Objects.requireNonNull(faculty.getBody()).getRequest(), HttpStatus.CREATED);
-//    }
+    @PostMapping(value = {"/acceptRequest"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity acceptRequest(@RequestBody String string) {
+        requestService.setRequestStatus(string,true);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping(value = {"/refuseRequest"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity refuseRequest(@RequestBody String string) {
+        requestService.setRequestStatus(string,false);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @PutMapping("deActivateChampionship")
     public ResponseEntity deActivateChampionship(RequestEntity<Championship> championship) {

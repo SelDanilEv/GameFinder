@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
-
+import lombok.extern.slf4j.Slf4j;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -28,7 +28,6 @@ public class JwtTokenProvider {
 
     @Autowired
     private UserDetailsService userDetailsService;
-
 
     @PostConstruct
     protected void init() {

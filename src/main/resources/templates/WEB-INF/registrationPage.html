@@ -20,7 +20,18 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
+<header>
+    <nav class="navbar navbar-inverse" style="background-color: rgb(170, 159, 138);">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" id="username" href="/" style="color: #272125"></a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a onclick="logout()" style="color: #272125">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
 <div style="width: fit-content;margin: 0 auto;">
     <div class="for" style="margin-top: 50px;margin-left: 100px">
         <div id="wrapper">
@@ -46,7 +57,8 @@
         <div style="margin-top: 40px">
             <h3 style="text-align:center;">Resolve Request</h3>
             <select style="background-color: rgba(255,255,255,.2); color: white;"
-                    class="form-control" id="Request-select" type="text" onclick="chooseRequest()" onchange="chooseRequest()">
+                    class="form-control" id="Request-select" type="text" onclick="chooseRequest()"
+                    onchange="chooseRequest()">
             </select>
             <h4 style="text-align: center">Message</h4>
             <div style="padding: 10px 15px" id="message">
@@ -54,10 +66,10 @@
             </div>
             <div style="display: flex;flex-direction: row;width: fit-content;margin: 0 auto;">
                 <button content="Register" class="req_butt" style="background: green; margin-right: 40px"
-                        onclick="addRequest()" type="submit">
+                        onclick="acceptRequest()" type="submit">
                     Accept
                 </button>
-                <button content="Register" class="req_butt" onclick="addRequest()" type="submit">
+                <button content="Register" class="req_butt" onclick="refuseRequest()" type="submit">
                     Refuse
                 </button>
             </div>
