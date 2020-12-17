@@ -51,7 +51,7 @@ public class AuthenticationRestControllerV1 {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ResponseEntity<User> Register(@RequestBody AuthenticationRequestDto requestDto) throws MethodArgumentNotValidException {
+    public ResponseEntity  Register(@RequestBody AuthenticationRequestDto requestDto) throws MethodArgumentNotValidException {
 
         try {
             String username = requestDto.getUsername();
@@ -67,7 +67,7 @@ public class AuthenticationRestControllerV1 {
             Map<Object, Object> response = new HashMap<>();
 
             log.info("Get request : /api/v1/auth/registration");
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.OK, HttpStatus.CREATED);
         } catch (AuthenticationException e) {
             log.info("Get request : /api/v1/auth/registration ---- Invalid username");
             throw new BadCredentialsException("Invalid username or password");
@@ -126,11 +126,11 @@ public class AuthenticationRestControllerV1 {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @GetMapping(value = {"/requests"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RequestDto>> requestsList() {
+    @GetMapping(value = {"/requests/{status}"})
+    public ResponseEntity<List<RequestDto>> requestsList(@PathVariable(name = "status") String status) {
         var list = requestService.findAll()
                 .stream()
-                .filter(i -> i.getStatus().equals("Pending"))
+                .filter(i -> i.getStatus().equals(status))
                 .collect(Collectors.toList());
         List<RequestDto> ret_list = new ArrayList<>();
         for (int i = 0; i < 10 && i < list.size(); i++) {
