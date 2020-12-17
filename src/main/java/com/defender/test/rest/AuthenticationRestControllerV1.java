@@ -108,6 +108,16 @@ public class AuthenticationRestControllerV1 {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping(value = {"/champs"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Championship>> champList() {
+        return new ResponseEntity<>(championshipService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = {"/reques"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Request>> reqList() {
+        return new ResponseEntity<>(requestService.findAll(), HttpStatus.OK);
+    }
+
     @GetMapping(value = {"/championships"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Championship>> championshipList() {
         return new ResponseEntity<>(championshipService.findAll()
